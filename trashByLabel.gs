@@ -37,7 +37,7 @@ function cleanEmailsByLabel() {
     var tempThreads = label.getThreads(0, 400);
     threads = threads.concat(tempThreads);
   }
-  console.info('Search Query returned %d Gmail Threads', threads.length);
+  console.info('%d Gmail Threads marked with mentioned labels', threads.length);
 
   //filter threads based on conditions
   var threadsToRemove = [];
