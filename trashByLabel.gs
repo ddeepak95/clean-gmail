@@ -11,7 +11,7 @@ Refer to this video for further instructions
 
 function cleanEmailsByLabel() {
 
-  //Configuraions to edit
+  //Configurations to edit
   var labels = ['TA','Flatmate']; //add labels that you want to auto delete. example format: ['label 1', 'label 2', 'label 3']
   var delayDays = 30; // Trash only emails more than 30 days old. Change the number if you want to change the number of days.
   var retainMarkedAsStarred = true; //change this to false if you are ok with trashing even the emails that are starred
