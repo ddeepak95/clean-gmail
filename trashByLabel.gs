@@ -39,7 +39,7 @@ function cleanEmailsByLabel() {
     }
     catch(e)
     {
-      Logger.log("Looks like the mentioned label '%s' is not yet created and applied to any of the GMail threads. Please label the emails properly and try again. Refer to this video on how to apply labels to threads: https://www.loom.com/share/e4787a5f501d490db3fd13d2675842de", labels[i]);
+      Logger.log("Looks like the mentioned label '%s' is not yet created and applied to any of the threads. Please label the emails properly and try again. Refer to this video on how to apply labels to threads: https://www.loom.com/share/e4787a5f501d490db3fd13d2675842de", labels[i]);
     }    
   }
   console.info('Total number of Gmail threads with the valid mentioned labels: %d', threads.length);
@@ -71,7 +71,13 @@ function cleanEmailsByLabel() {
           splitThreads.push(filteredThreads[i]);
           if (i == 99 || i == filteredThreads.length - 1) {
               GmailApp.moveThreadsToTrash(splitThreads);
-              console.info('Moved %d threads to trash', splitThreads.length);
+              if (i == 99)
+              {
+                console.info('Moving %d threads out of %d to trash. Please wait to trash the rest!', splitThreads.length, filteredThreads.length);
+              }
+              else{
+                console.info('Moved all %d threads to trash. Completed!', filteredThreads.length);
+              }              
               splitThreads = [];
           }
       }
