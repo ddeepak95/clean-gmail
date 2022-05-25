@@ -1,18 +1,16 @@
 /*
-This script can be used to bulk delete emails under the following conditions:
-- emails assigned with specific labels and received before a specific number of days
-- configurations can be adjusted to choose whether the starred and labelled emails can be deleted or not
-
-This script can also be configured to auto trigger periodically in the Appscript itself to bulk delete the emails tagged under the labels without user intervention.
-
-Refer to this video for further instructions - https://www.loom.com/share/8327a90838ea4c058c78ff69b00cd5c7
+This script can be used to bulk delete emails with following conditions:
+- specific labels assigned to them and received before a specific number of days
+- configurations can be adjusted to choose whether the starred emails can be deleted
+This script can also be configured to auto triggered every few days without user interaction to bulk delete the emails tagged under the labels as configured in this script.
+Refer to this video for further instructions
 */
 
 
 function cleanEmailsByLabel() {
 
   //Configurations to edit
-  var labels = ['label 1','label 2','label3']; //add labels that you want to auto delete. example format: ['label 1', 'label 2', 'label 3']
+  var labels = ['label 1','label 2','label 3']; //add labels that you want to auto delete. example format: ['label 1', 'label 2', 'label 3']
   var delayDays = 30; // Trash only emails more than 30 days old. Change the number if you want to change the number of days.
   var retainMarkedAsStarred = true; //change this to false if you are ok with trashing even the emails that are starred
 
@@ -34,10 +32,17 @@ function cleanEmailsByLabel() {
   for (var i = 0; i < labels.length; i++)
   {
     var label = GmailApp.getUserLabelByName(labels[i]);
-    var tempThreads = label.getThreads(0, 400);
-    threads = threads.concat(tempThreads);
+    try
+    {
+      var tempThreads = label.getThreads(0, 400);
+      threads = threads.concat(tempThreads);
+    }
+    catch(e)
+    {
+      Logger.log("Looks like the mentioned label '%s' is not yet created and applied to any of the threads. Please label the emails properly and try again. Refer to this video on how to apply labels to threads: https://www.loom.com/share/e4787a5f501d490db3fd13d2675842de", labels[i]);
+    }    
   }
-  console.info('%d Gmail Threads marked with mentioned labels', threads.length);
+  console.info('Total number of Gmail threads with the valid mentioned labels: %d', threads.length);
 
   //filter threads based on conditions
   var threadsToRemove = [];
@@ -57,7 +62,7 @@ function cleanEmailsByLabel() {
     var indexNumber = threadsToRemove[k] - k;    
     filteredThreads.splice(indexNumber,1);
   }
-  console.info('%d Gmail Threads to be Trashed', filteredThreads.length);
+  console.info('Number of Gmail threads to be trashed based on the configurations set: %d', filteredThreads.length);
 
   // we split the array if its size more than 100 
   if (filteredThreads.length > 100) {
