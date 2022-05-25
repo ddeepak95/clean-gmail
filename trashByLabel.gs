@@ -39,7 +39,7 @@ function cleanEmailsByLabel() {
     }
     catch(e)
     {
-      Logger.log("Looks like the mentioned label '%s' is not yet created and applied to any of the threads. Please label the emails properly and try again. Refer to this video on how to apply labels to threads: https://www.loom.com/share/e4787a5f501d490db3fd13d2675842de", labels[i]);
+      Logger.log("Looks like the mentioned label '%s' is not yet created and applied to any of the GMail threads. Please label the emails properly and try again. Refer to this video on how to apply labels to threads: https://www.loom.com/share/e4787a5f501d490db3fd13d2675842de", labels[i]);
     }    
   }
   console.info('Total number of Gmail threads with the valid mentioned labels: %d', threads.length);
