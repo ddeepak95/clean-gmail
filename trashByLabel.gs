@@ -3,7 +3,7 @@ This script can be used to bulk delete emails with following conditions:
 - specific labels assigned to them and received before a specific number of days
 - configurations can be adjusted to choose whether the starred emails can be deleted
 This script can also be configured to auto triggered every few days without user interaction to bulk delete the emails tagged under the labels as configured in this script.
-Refer to this video for further instructions
+Refer to this video for further instructions: https://www.loom.com/share/8327a90838ea4c058c78ff69b00cd5c7
 */
 
 
